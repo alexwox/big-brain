@@ -1,8 +1,8 @@
 'use client';
-import { Unauthenticated, Authenticated, useQuery } from "convex/react";
-import { SignInButton, UserButton } from "@clerk/nextjs";
+
 import { ModeToggle } from "@/components/ui/mode-toggle";
-import { Button } from "@/components/ui/button";
+import { HeaderActions } from "./header-actions";
+
 import Image from "next/image";
 export function Header() {
     return <div className = "bg-slate-900 py-4"> 
@@ -14,17 +14,9 @@ export function Header() {
                 BIGBRAIN
             </div>
 
-            <div>  
-               <Unauthenticated>
-                    <SignInButton />
-                </Unauthenticated>
-
-                <Authenticated>
-                    <div className = "flex items-center gap-4">
-                        <ModeToggle />
-                        <UserButton />
-                    </div>
-                </Authenticated> 
+            <div className="flex items-center gap-4">  
+                <ModeToggle />
+                <HeaderActions />
             </div> 
         </div>
     </div>
