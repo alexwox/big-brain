@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Inter as FontSans } from "next/font/google";
 import { Providers } from "./providers";
+import { Header } from "./header";
 import "./globals.css";
 
 const fontSans = FontSans({
@@ -32,11 +33,15 @@ export default function RootLayout({
 }>) {
   return (
     
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          {children}
+          
+        </Providers>
       </body>
     </html>
   );

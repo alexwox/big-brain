@@ -23,12 +23,10 @@ export default function Home() {
 
         <Button onClick={() => createDocument({ title: "Hello World" })}> Click Me</Button>
 
-      {documents?.map((doc) => (
-        <div key={doc._id}>{doc.title}</div>
-      ))}
+        {documents?.map((doc) => (
+          <div key={doc._id}>{doc.title}</div>
+        ))}
       
-
-
       </Authenticated>
     </main>
   );
