@@ -3,7 +3,7 @@ Tutorial : https://www.youtube.com/watch?v=4ojKx770_0Q&t=146s
 Cody's repo: https://github.com/webdevcody/big-brain 
 
 Timestamps: 
-- 00:32:42 / 5:21:58
+- 00:36:36 / 5:21:58
 
 Chapters: 
 - [X] Chapter 0: 00:00:00 Overview
@@ -14,7 +14,7 @@ Chapters:
 - [X] Chapter 5: 00:23:26 Convex Queries
 - [X] Chapter 6: 00:26:13 identityToken
 - [X] Chapter 7: 00:28:30 withIndex
-- [ ] Chapter 8: 00:32:42 ShadCn
+- [X] Chapter 8: 00:32:42 ShadCn
 - [ ] Chapter 9: 00:37:11 Header
 - [ ] Chapter 10: 00:42:47 Loading State
 - [ ] Chapter 11: 00:45:01 Fix up Dashboard
