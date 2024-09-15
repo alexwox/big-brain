@@ -22,7 +22,9 @@ import { Loader2 } from "lucide-react"
 
 const formSchema = z.object({
     title: z.string().min(1).max(100),
+    file: z.instanceof(File),
 })
+
 
 export function UploadDocumentForm({ onUpload }: { onUpload: () => void }) {
     const createDocument = useMutation(api.documents.createDocument);
@@ -60,7 +62,27 @@ export function UploadDocumentForm({ onUpload }: { onUpload: () => void }) {
                         </FormItem>
                     )}
                 />
-                <LoadingButton 
+
+                <FormField
+                    control={form.control}
+                    name="file"
+                    render={({ field: { value, onChange, ...fieldProps } }) => (
+                        <FormItem>
+                            <FormLabel>File</FormLabel>
+                            <FormControl>
+                                <Input type="file" {...fieldProps}
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0]
+                                        if (file) {
+                                            onChange(file)
+                                        }
+                                    }} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <LoadingButton
                     isLoading={form.formState.isSubmitting}
                     loadingText="Uploading..."
                 >

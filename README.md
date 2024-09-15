@@ -17,11 +17,11 @@ Chapters:
 - [X] Chapter 8: 00:32:42 ShadCn
 - [X] Chapter 9: 00:37:11 Header
 - [X] Chapter 10: 00:42:47 Loading State
-- [ ] Chapter 11: 00:45:01 Fix up Dashboard
-- [ ] Chapter 12: 00:49:26 Upload Document Modal
-- [ ] Chapter 13: 01:00:55 Hide Dialog
-- [ ] Chapter 14: 01:02:53 Loader Button
-- [ ] Chapter 15: 01:08:32 Select File
+- [X] Chapter 11: 00:45:01 Fix up Dashboard
+- [X] Chapter 12: 00:49:26 Upload Document Modal
+- [X] Chapter 13: 01:00:55 Hide Dialog
+- [X] Chapter 14: 01:02:53 Loader Button
+- [X] Chapter 15: 01:08:32 Select File
 - [ ] Chapter 16: 01:11:08 Convex File URL
 - [ ] Chapter 17: 01:17:20 Clean up
 - [ ] Chapter 18: 01:19:23 View Document
