@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Inter as FontSans } from "next/font/google";
 import { Providers } from "./providers";
-import { Header } from "./header";
+import { NewHeader } from "./new-header";
 import "./globals.css";
 
 const fontSans = FontSans({
@@ -38,7 +38,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <Header />
+          <NewHeader />
           {children}
           
         </Providers>
