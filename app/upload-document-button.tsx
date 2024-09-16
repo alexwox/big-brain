@@ -3,7 +3,6 @@ import { useMutation } from "convex/react"
 import { api } from "../convex/_generated/api"
 import { UploadDocumentForm } from "./upload-document-form"
 import { useState } from "react"
-
 import {
     Dialog,
     DialogContent,
@@ -12,25 +11,28 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { Upload } from "lucide-react"
 
-export function CreateDocumentButton() {
+export function UploadDocumentButton() {
     const createDocument = useMutation(api.documents.createDocument);
     const [isOpen, setIsOpen] = useState(false);
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button> Upload Document</Button>
+                <Button className="flex items-center gap-2">
+                   <Upload className="w-4 h-4" /> Upload Document
+                </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                <DialogTitle>Upload Document</DialogTitle>
-                <DialogDescription>
-                    Upload a document to get started.
-                </DialogDescription>
-                <UploadDocumentForm onUpload={() => setIsOpen(false)}/>
+                    <DialogTitle>Upload Document</DialogTitle>
+                    <DialogDescription>
+                        Upload a document to get started.
+                    </DialogDescription>
+                    <UploadDocumentForm onUpload={() => setIsOpen(false)} />
                 </DialogHeader>
             </DialogContent>
-            </Dialog>
-        
+        </Dialog>
+
     )
 }

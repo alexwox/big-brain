@@ -1,9 +1,9 @@
-Following Web Dev Cody's tutorial on "Big Brain" with Next.js, Convex, Clerk etc. 
+Following Web Dev Cody's tutorial on "Big Brain" with Next.js, Convex, Clerk etc.
 Tutorial : https://www.youtube.com/watch?v=4ojKx770_0Q&t=146s
 Cody's repo: https://github.com/webdevcody/big-brain 
 
 Timestamps: 
-- 00:45:09 / 5:21:58
+- 01:11:01 / 5:21:58
 
 Chapters: 
 - [X] Chapter 0: 00:00:00 Overview

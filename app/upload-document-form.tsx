@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Loader2 } from "lucide-react"
+import { generateUploadUrl } from "@/convex/documents";
 
 
 const formSchema = z.object({
@@ -28,6 +29,7 @@ const formSchema = z.object({
 
 export function UploadDocumentForm({ onUpload }: { onUpload: () => void }) {
     const createDocument = useMutation(api.documents.createDocument);
+    const generateUploadUrl = useMutation(api.documents.generateUploadUrl);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -37,13 +39,21 @@ export function UploadDocumentForm({ onUpload }: { onUpload: () => void }) {
 
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
+        const url = await generateUploadUrl();
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        console.log(values)
+        const result = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": values.file.type },
+            body: values.file,
+        });
+        const {storageId} = await result.json();
+
         await createDocument({
             title: values.title,
+            fileId: storageId as string,
         })
-        onUpload()
+        onUpload();
     }
 
     return (
@@ -71,11 +81,11 @@ export function UploadDocumentForm({ onUpload }: { onUpload: () => void }) {
                             <FormLabel>File</FormLabel>
                             <FormControl>
                                 <Input type="file" {...fieldProps}
+                                    accept=".pdf,.docx,.txt,.md"
                                     onChange={(e) => {
                                         const file = e.target.files?.[0]
-                                        if (file) {
-                                            onChange(file)
-                                        }
+                                        onChange(file)
+                                        
                                     }} />
                             </FormControl>
                             <FormMessage />
