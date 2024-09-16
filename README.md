@@ -22,9 +22,9 @@ Chapters:
 - [X] Chapter 13: 01:00:55 Hide Dialog
 - [X] Chapter 14: 01:02:53 Loader Button
 - [X] Chapter 15: 01:08:32 Select File
-- [ ] Chapter 16: 01:11:08 Convex File URL
-- [ ] Chapter 17: 01:17:20 Clean up
-- [ ] Chapter 18: 01:19:23 View Document
+- [X] Chapter 16: 01:11:08 Convex File URL
+- [X] Chapter 17: 01:17:20 Clean up
+- [X] Chapter 18: 01:19:23 View Document
 - [ ] Chapter 19: 01:31:41 Chat Widget
 - [ ] Chapter 20: 01:50:11 Tabs
 - [ ] Chapter 21: 02:12:34 Question Form
