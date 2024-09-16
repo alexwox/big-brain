@@ -3,16 +3,17 @@
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
+import ChatPanel from "./chat-panel";
 
 export default function DocumentPage(
   { params }: { params: { documentId: Id<"documents"> } }
 ) {
+  const createDocument = useMutation(api.documents.createDocument);
+
   const document = useQuery(api.documents.getDocument, {
     documentId: params.documentId
   });
-  const createDocument = useMutation(api.documents.createDocument);
-
-
+  
   if (!document) {
     return <div>No access to this document</div>;
   }
@@ -30,9 +31,8 @@ export default function DocumentPage(
             className="w-full h-full"
             src={document.documentUrl} />}
         </div>
-        <div className=" w-[300px] bg-gray-900 rounded-md p-4">
-          <h2 className="text-lg font-bold">Chat</h2>
-        </div>
+
+        <ChatPanel/>
       </div>
     </main>
   );

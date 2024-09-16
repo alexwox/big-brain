@@ -3,7 +3,7 @@ Tutorial : https://www.youtube.com/watch?v=4ojKx770_0Q&t=146s
 Cody's repo: https://github.com/webdevcody/big-brain 
 
 Timestamps: 
-- 01:11:01 / 5:21:58
+- 01:33:07 / 5:21:58
 
 Chapters: 
 - [X] Chapter 0: 00:00:00 Overview
