@@ -19,10 +19,35 @@ export const getDocuments = query({
     }
 })
 
+export const getDocument = query({
+    args: {
+        documentId: v.id('documents'),
+    },
+    async handler(ctx, args) {
+        const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
+
+        if (!userId) {
+            return null;
+        }
+
+        const document = await ctx.db.get(args.documentId)
+        
+        if (!document) {
+            return null;
+        }
+
+        if (document.tokenIdentifier !== userId) {
+            return null;
+        }
+        
+        return {...document, documentUrl: await ctx.storage.getUrl(document.fileId)};
+    }
+})
+
 export const createDocument = mutation({
     args: {
         title: v.string(),
-        fileId: v.string(),
+        fileId: v.id('_storage'),
     },
 
     async handler(ctx, args) {

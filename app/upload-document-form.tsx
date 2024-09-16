@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Loader2 } from "lucide-react"
 import { generateUploadUrl } from "@/convex/documents";
+import { Id } from "@/convex/_generated/dataModel";
 
 
 const formSchema = z.object({
@@ -51,7 +52,7 @@ export function UploadDocumentForm({ onUpload }: { onUpload: () => void }) {
 
         await createDocument({
             title: values.title,
-            fileId: storageId as string,
+            fileId: storageId as Id<"_storage">,
         })
         onUpload();
     }
