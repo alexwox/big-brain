@@ -3,7 +3,7 @@ Tutorial : https://www.youtube.com/watch?v=4ojKx770_0Q&t=146s
 Cody's repo: https://github.com/webdevcody/big-brain 
 
 Timestamps: 
-- 01:33:07 / 5:21:58
+- 01:50:30 / 5:21:58
 
 Chapters: 
 - [X] Chapter 0: 00:00:00 Overview
@@ -25,7 +25,7 @@ Chapters:
 - [X] Chapter 16: 01:11:08 Convex File URL
 - [X] Chapter 17: 01:17:20 Clean up
 - [X] Chapter 18: 01:19:23 View Document
-- [ ] Chapter 19: 01:31:41 Chat Widget
+- [X] Chapter 19: 01:31:41 Chat Widget
 - [ ] Chapter 20: 01:50:11 Tabs
 - [ ] Chapter 21: 02:12:34 Question Form
 - [ ] Chapter 22: 02:19:47 UI Improvements
