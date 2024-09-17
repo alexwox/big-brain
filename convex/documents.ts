@@ -1,9 +1,19 @@
+import OpenAI from "openai";
+
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { ConvexError } from "convex/values";
+import { action } from "./_generated/server";
+import { api } from "./_generated/api";
+
+const openai = new OpenAI(
+    {
+        apiKey: process.env.OPENAI_API_KEY,
+    }
+);
 
 export const generateUploadUrl = mutation(async (ctx) => {
-  return await ctx.storage.generateUploadUrl();
+    return await ctx.storage.generateUploadUrl();
 });
 
 export const getDocuments = query({
@@ -14,8 +24,8 @@ export const getDocuments = query({
             return [];
         }
         return await ctx.db.query('documents')
-        .withIndex('by_tokenIdentifier', (q) => q.eq('tokenIdentifier', userId))
-        .collect();
+            .withIndex('by_tokenIdentifier', (q) => q.eq('tokenIdentifier', userId))
+            .collect();
     }
 })
 
@@ -31,7 +41,7 @@ export const getDocument = query({
         }
 
         const document = await ctx.db.get(args.documentId)
-        
+
         if (!document) {
             return null;
         }
@@ -39,8 +49,8 @@ export const getDocument = query({
         if (document.tokenIdentifier !== userId) {
             return null;
         }
-        
-        return {...document, documentUrl: await ctx.storage.getUrl(document.fileId)};
+
+        return { ...document, documentUrl: await ctx.storage.getUrl(document.fileId) };
     }
 })
 
@@ -64,3 +74,64 @@ export const createDocument = mutation({
         })
     },
 })
+
+export const askQuestion = action({
+    args: {
+        question: v.string(),
+        documentId: v.id('documents'),
+    },
+    async handler(ctx, args) {
+        const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
+        console.log(userId);
+
+        if (!userId) {
+            throw new ConvexError('Unauthorized');
+        }
+
+        const document = await ctx.runQuery(api.documents.getDocument, {
+            documentId: args.documentId,
+        })
+
+        if (!document) {
+            throw new ConvexError('Document not found');
+        }
+
+        const file = await ctx.storage.get(document.fileId);
+
+        if (!file) {
+            throw new ConvexError('File not found');
+        }
+
+        const text = await file.text()
+        const completion: OpenAI.Chat.Completions.ChatCompletion = await openai.chat.completions.create({
+            model: "gpt-4o",
+            messages: [
+                {
+                    role: "system", content: `
+                    Given the following text
+                    Text: ${text}
+                    `
+                },
+                {
+                    role: "user",
+                    content: `
+                    Answer the question based on the text.
+                    Question: ${args.question}
+                    `,
+                },
+            ],
+        });
+
+        console.log(file.text());
+        console.log(completion.choices[0].message);
+
+        return completion.choices[0].message.content;
+    },
+})
+
+
+
+
+
+
+
