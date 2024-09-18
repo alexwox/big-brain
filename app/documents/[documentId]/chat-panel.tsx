@@ -13,61 +13,13 @@ export default function ChatPanel({
     const askQuestion = useAction(api.documents.askQuestion);
 
     return (
-        <div className=" w-[300px] bg-gray-900 flex flex-col justify-between gap-3 p-4">
-            <div className="h-[720px] overflow-y-auto">
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
-                <div className="p4 bg-gray-800">Hello mf</div>
+        <div className=" rounded-xl bg-gray-900 flex flex-col justify-between gap-3 p-4">
+            <div className="h-[600px] overflow-y-auto">
+                
 
             </div>
             <div className="flex gap-2">
-                <form className="flex gap-2" onSubmit={async (e) => {
+                <form className="flex-1" onSubmit={async (e) => {
                     e.preventDefault();
                     const target = e.target as HTMLFormElement;
                     const formData = new FormData(target);
@@ -75,8 +27,10 @@ export default function ChatPanel({
 
                     await askQuestion({ documentId: documentId, question: text }).then(console.log);
                 }}>
-                    <Input required name="text" />
+                    <div className="flex w-full gap-2">
+                    <Input required name="text" className="flex-1" />
                     <Button> Send </Button>
+                    </div>
                 </form>
             </div>
 
