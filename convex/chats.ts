@@ -1,13 +1,14 @@
 import { v } from "convex/values";
-import { internalMutation, internalQuery } from "./_generated/server";
+import { internalMutation, internalQuery, query } from "./_generated/server";
 import { ConvexError } from "convex/values";
 
-export const getChatsForDocument = internalQuery({
+export const getChatsForDocument = query({
     args: {
         documentId: v.id("documents"),
     },
     async handler(ctx, args) {
         const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier;
+
         if (!userId) {
             return [];
         }
@@ -18,7 +19,7 @@ export const getChatsForDocument = internalQuery({
             (q) => q
             .eq("documentId", args.documentId)
             .eq("tokenIdentifier", userId)
-        );
+        ).collect();
     }
 })
 

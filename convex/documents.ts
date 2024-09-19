@@ -8,6 +8,9 @@ import { api } from "./_generated/api";
 import { internal } from "./_generated/api";
 import { Id } from "./_generated/dataModel";
 import { internalQuery } from "./_generated/server";
+import { useQuery } from "convex/react";
+import { getChatsForDocument } from "./chats";
+
 
 export async function hasAccessToDocument(
     ctx: MutationCtx | QueryCtx,
@@ -105,7 +108,16 @@ export const askQuestion = action({
         question: v.string(),
         documentId: v.id('documents'),
     },
+
     async handler(ctx, args) {
+
+        const chats = await ctx.runQuery(
+            api.chats.getChatsForDocument,
+            {
+                documentId: args.documentId,
+            }
+        );
+
         const accessObj = await ctx.runQuery(
             internal.documents.hasAccessToDocumentQuery,
             {
@@ -132,6 +144,8 @@ export const askQuestion = action({
                     role: "system", content: `
                     Given the following text
                     Text: ${text}
+                    and the following conversation history
+                    History: ${chats.map((chat) => `${chat.isHuman ? "You" : "AI"}: ${chat.text}`).join("\n")}
                     `
                 },
                 {
