@@ -138,7 +138,7 @@ export const askQuestion = action({
 
         const text = await file.text()
         const completion: OpenAI.Chat.Completions.ChatCompletion = await openai.chat.completions.create({
-            model: "gpt-4o",
+            model: "gpt-3.5-turbo",
             messages: [
                 {
                     role: "system", content: `

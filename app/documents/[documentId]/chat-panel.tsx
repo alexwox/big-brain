@@ -21,7 +21,7 @@ export default function ChatPanel({
 
 
     return (
-        <div className=" rounded-xl bg-gray-900 flex flex-col justify-between gap-3 p-4">
+        <div className=" rounded-xl bg-gray-900 flex flex-col justify-between gap-3 p-6 rounded-xl">
             <div className="h-[600px] overflow-y-auto space-y-2">
                 <div className="bg-slate-950 p-4 rounded">
                     Ask about your document
