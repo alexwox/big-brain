@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAction } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { cn } from "@/lib/utils";
+
 export default function ChatPanel({
     documentId
 }: {
@@ -14,8 +16,19 @@ export default function ChatPanel({
 
     return (
         <div className=" rounded-xl bg-gray-900 flex flex-col justify-between gap-3 p-4">
-            <div className="h-[600px] overflow-y-auto">
-                
+            <div className="h-[600px] overflow-y-auto space-y-2">
+                <div className="bg-slate-950 p-4 rounded">
+                    Ask about your document
+                </div>
+
+                <div className={cn(
+                    {
+                        "bg-slate-800 p-4 rounded": true,
+                    },
+                    "rounded p-2 text-right",
+                )}>
+                    Ask about your document
+                </div>
 
             </div>
             <div className="flex gap-2">
@@ -28,8 +41,8 @@ export default function ChatPanel({
                     await askQuestion({ documentId: documentId, question: text }).then(console.log);
                 }}>
                     <div className="flex w-full gap-2">
-                    <Input required name="text" className="flex-1" />
-                    <Button> Send </Button>
+                        <Input required name="text" className="flex-1" />
+                        <Button> Send </Button>
                     </div>
                 </form>
             </div>
