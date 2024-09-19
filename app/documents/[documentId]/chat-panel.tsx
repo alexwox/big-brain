@@ -1,11 +1,13 @@
-
 "use client";
+
 import { Id } from "@/convex/_generated/dataModel";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAction } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
+import { useQuery } from "convex/react";
+
 
 export default function ChatPanel({
     documentId
@@ -13,7 +15,10 @@ export default function ChatPanel({
     documentId: Id<"documents">
 }) {
     const askQuestion = useAction(api.documents.askQuestion);
-
+    const chats = useQuery(api.chats.getChatsForDocument, {
+        documentId: documentId
+    });
+    
     return (
         <div className=" rounded-xl bg-gray-900 flex flex-col justify-between gap-3 p-4">
             <div className="h-[600px] overflow-y-auto space-y-2">
