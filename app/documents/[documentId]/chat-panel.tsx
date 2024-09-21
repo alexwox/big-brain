@@ -1,12 +1,10 @@
 "use client";
 
 import { Id } from "@/convex/_generated/dataModel";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useAction } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
 import { useQuery } from "convex/react";
+import { QuestionForm } from "./question-form";
 
 
 export default function ChatPanel({
@@ -14,12 +12,10 @@ export default function ChatPanel({
 }: {
     documentId: Id<"documents">
 }) {
-    const askQuestion = useAction(api.documents.askQuestion);
     const chats = useQuery(api.chats.getChatsForDocument, {
         documentId: documentId
     })
-
-
+    
     return (
         <div className=" rounded-xl bg-gray-900 flex flex-col justify-between gap-3 p-6 rounded-xl">
             <div className="h-[600px] overflow-y-auto space-y-2">
@@ -39,19 +35,7 @@ export default function ChatPanel({
                 ))}
             </div>
             <div className="flex gap-2">
-                <form className="flex-1" onSubmit={async (e) => {
-                    e.preventDefault();
-                    const target = e.target as HTMLFormElement;
-                    const formData = new FormData(target);
-                    const text = formData.get("text") as string;
-
-                    await askQuestion({ documentId: documentId, question: text }).then(console.log);
-                }}>
-                    <div className="flex w-full gap-2">
-                        <Input required name="text" className="flex-1" />
-                        <Button> Send </Button>
-                    </div>
-                </form>
+                <QuestionForm documentId={documentId}/>
             </div>
 
         </div>)

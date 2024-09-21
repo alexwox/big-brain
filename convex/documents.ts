@@ -11,6 +11,18 @@ import { internalQuery } from "./_generated/server";
 import { useQuery } from "convex/react";
 import { getChatsForDocument } from "./chats";
 
+function truncateHistory(chats: any[], maxLength: number): string {
+    let history = '';
+    for (let i = chats.length - 1; i >= 0; i--) {
+      const chat = chats[i];
+      const chatString = `${chat.isHuman ? "You" : "AI"}: ${chat.text}\n`;
+      if (history.length + chatString.length > maxLength) {
+        break;
+      }
+      history = chatString + history;
+    }
+    return history.trim();
+}
 
 export async function hasAccessToDocument(
     ctx: MutationCtx | QueryCtx,
@@ -137,21 +149,23 @@ export const askQuestion = action({
         }
 
         const text = await file.text()
+        const truncatedHistory = truncateHistory(chats, 1000);
+
         const completion: OpenAI.Chat.Completions.ChatCompletion = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
+            model: "gpt-4",
             messages: [
                 {
                     role: "system", content: `
                     Given the following text
                     Text: ${text}
                     and the following conversation history
-                    History: ${chats.map((chat) => `${chat.isHuman ? "You" : "AI"}: ${chat.text}`).join("\n")}
+                    History: ${truncatedHistory}
                     `
                 },
                 {
                     role: "user",
                     content: `
-                    Answer the question based on the text.
+                    Answer the question based on the text. 
                     Question: ${args.question}
                     `,
                 },
