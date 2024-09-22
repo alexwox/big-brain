@@ -5,7 +5,7 @@ import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import ChatPanel from "./chat-panel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Loader2 } from "lucide-react"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function DocumentPage(
   { params }: { params: { documentId: Id<"documents"> } }
@@ -18,9 +18,19 @@ export default function DocumentPage(
 
   return (
     <main className="p-24 gap-6 space-y-6">
-      {!document && <div className="flex items-center justify-center">
-        <Loader2 className="animate-spin" />
-      </div>}
+      {!document && 
+      <div className="space-y-8">
+        <div className="flex justify-between">
+          <Skeleton className="w-[500px] h-[30px]" />
+        </div>
+        <div className="flex gap-1">
+          <Skeleton className="w-[100px] h-[30px]" />
+          <Skeleton className="w-[100px] h-[30px]" />
+        </div>
+        <Skeleton className="w-full h-[700px] rounded-xl" />
+      </div>
+
+      }
 
       {document && (<>
         <div className="flex justify-between items-center">
