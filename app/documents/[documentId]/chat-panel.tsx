@@ -15,28 +15,37 @@ export default function ChatPanel({
     const chats = useQuery(api.chats.getChatsForDocument, {
         documentId: documentId
     })
-    
+
     return (
-        <div className=" rounded-xl bg-gray-900 flex flex-col justify-between gap-3 p-6 rounded-xl">
+        <div className=" rounded-xl flex flex-col justify-between gap-3 p-6 rounded-xl border-2 border-slate-900">
             <div className="h-[600px] overflow-y-auto space-y-2">
-                <div className="bg-slate-950 p-4 rounded">
+                <div className="dark:bg-slate-950 bg-white p-4 rounded dark:text-white text-black border-2 dark:border-slate-700 border-slate-200 font-bold">
                     Ask about your document
                 </div>
+
                 {chats?.map((chat) => (
                     <div className={cn(
                         {
-                            "bg-slate-800 p-4 rounded": chat.isHuman,
+                            "bg-blue-200 text-black p-4 rounded": chat.isHuman,
+                            "dark:bg-blue-900 dark:text-blue-200 p-4 rounded": chat.isHuman,
+
+                            "bg-gray-200 text-black p-4 rounded": !chat.isHuman,
+                            "dark:bg-gray-700 dark:text-gray-200 p-4 rounded": !chat.isHuman,
+                            
                             "text-right": chat.isHuman,
+
+                            "border-2 border-slate-200 dark:border-slate-600": true,
                         },
-                        "rounded p-2 whitespace-prel",
+                        "rounded p-2 whitespace-pre-wrap"
                     )}>
                         {chat.isHuman ? "You" : "AI"}: {chat.text}
                     </div>
                 ))}
             </div>
             <div className="flex gap-2">
-                <QuestionForm documentId={documentId}/>
+                <QuestionForm documentId={documentId} />
             </div>
 
-        </div>)
+        </div>
+    )
 }

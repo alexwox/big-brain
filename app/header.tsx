@@ -19,10 +19,10 @@ export function Header() {
                             className="rounded"
                             alt="an image of a brain"
                         />
-                        <span className="font-bold">BIGBRAIN</span>
+                        <span className="font-bold text-xl text-white" >BIGBRAIN</span>
                     </Link>
                     <nav>
-                        <Link href="/" className="text-white hover:text-slate-300 transition-colors"> Documents</Link>
+                        <Link href="/" className="text-white hover:text-slate-300 transition-colors font-semibold"> Documents</Link>
                     </nav>
                 </div>
                 

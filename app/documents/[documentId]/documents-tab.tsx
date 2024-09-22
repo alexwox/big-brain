@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export function DocumentsTab() {
-    return <Tabs defaultValue="document" className="w-[400px]">
+    return <Tabs defaultValue="document" className="w-[400px] h-[700px]">
         <TabsList>
             <TabsTrigger value="document">Document</TabsTrigger>
             <TabsTrigger value="password">Chat</TabsTrigger>
