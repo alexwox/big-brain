@@ -3,7 +3,7 @@ Tutorial : https://www.youtube.com/watch?v=4ojKx770_0Q&t=146s
 Cody's repo: https://github.com/webdevcody/big-brain 
 
 Timestamps: 
-- 02:22:15 / 5:21:58
+- 02:46:39 / 5:21:58
 
 Chapters: 
 - [X] Chapter 0: 00:00:00 Overview
@@ -29,11 +29,11 @@ Chapters:
 - [X] Chapter 20: 01:50:11 Tabs
 - [X] Chapter 21: 02:12:34 Question Form
 - [X] Chapter 22: 02:19:47 UI Improvements
-- [ ] Chapter 23: 02:21:59 Skeleton Loader
-- [ ] Chapter 24: 02:27:53 Empty State
-- [ ] Chapter 25: 02:32:55 Generate Description
-- [ ] Chapter 26: 02:42:55 Document Skeleton
-- [ ] Chapter 27: 02:46:39 Delete Document
+- [X] Chapter 23: 02:21:59 Skeleton Loader
+- [X] Chapter 24: 02:27:53 Empty State
+- [X] Chapter 25: 02:32:55 Generate Description
+- [X] Chapter 26: 02:42:55 Document Skeleton
+- [X] Chapter 27: 02:46:39 Delete Document
 - [ ] Chapter 28: 02:58:59 Side Nav & Dashboard Layout
 - [ ] Chapter 29: 03:11:23 Create Notes
 - [ ] Chapter 30: 03:22:32 View Notes 
