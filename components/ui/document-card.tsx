@@ -11,7 +11,7 @@ import { Doc } from "@/convex/_generated/dataModel"
 import { Button } from "./button"
 import { Eye } from "lucide-react"
 import Link from "next/link"
-
+import { Loader2 } from "lucide-react"
 export function DocumentCard({ document }: { document: Doc<"documents"> }) {
     return (
         <Card>
@@ -20,7 +20,11 @@ export function DocumentCard({ document }: { document: Doc<"documents"> }) {
                 <CardDescription> </CardDescription>
             </CardHeader>
             <CardContent>
-                <p>Card Content</p>
+                <p> {!document.description ? (
+                    <div className="flex items-center justify-center">
+                    <Loader2 className="animate-spin" /> 
+                    </div>
+                ): document.description} </p>
             </CardContent>
             <CardFooter>
                 <Button asChild variant="secondary" className="flex items-center gap-2">

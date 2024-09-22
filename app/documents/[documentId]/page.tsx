@@ -5,6 +5,8 @@ import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import ChatPanel from "./chat-panel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Loader2 } from "lucide-react"
+
 export default function DocumentPage(
   { params }: { params: { documentId: Id<"documents"> } }
 ) {
@@ -14,36 +16,38 @@ export default function DocumentPage(
     documentId: params.documentId
   });
 
-  if (!document) {
-    return <div>No access to this document</div>;
-  }
-
-  console.log(params.documentId);
   return (
     <main className="p-24 gap-6 space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold"> {document.title} </h1>
-      </div>
-      <div className="flex gap-12">
-        <Tabs defaultValue="document" className ="w-full" >
-          <TabsList className = "mb-2">
-            <TabsTrigger value="document">Document</TabsTrigger>
-            <TabsTrigger value="chat">Chat</TabsTrigger>
-          </TabsList>
-          <TabsContent value="document">
-            <div className="
+      {!document && <div className="flex items-center justify-center">
+        <Loader2 className="animate-spin" />
+      </div>}
+
+      {document && (<>
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold"> {document.title} </h1>
+        </div>
+
+        <div className="flex gap-12">
+          <Tabs defaultValue="document" className="w-full" >
+            <TabsList className="mb-2">
+              <TabsTrigger value="document">Document</TabsTrigger>
+              <TabsTrigger value="chat">Chat</TabsTrigger>
+            </TabsList>
+            <TabsContent value="document">
+              <div className="
             bg-gray-200 dark:bg-gray-900 rounded-xl p-4 flex-1 h-[700px]
             border-2 border-slate-200 dark:border-slate-600">
-              {document.documentUrl && <iframe
-                className="w-full h-full"
-                src={document.documentUrl} />}
-            </div>
-          </TabsContent>
-          <TabsContent value="chat">
-            <ChatPanel documentId={document._id} />
-          </TabsContent>
-        </Tabs>
-      </div>
+                {document.documentUrl && <iframe
+                  className="w-full h-full"
+                  src={document.documentUrl} />}
+              </div>
+            </TabsContent>
+            <TabsContent value="chat">
+              <ChatPanel documentId={document._id} />
+            </TabsContent>
+          </Tabs>
+        </div>
+      </>)}
     </main>
   );
 }
