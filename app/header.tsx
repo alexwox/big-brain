@@ -1,5 +1,4 @@
-'use client';
-
+"use client";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { HeaderActions } from "./header-actions";
 

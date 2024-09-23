@@ -1,14 +1,13 @@
+import { ReactNode } from 'react';
+import { SideNav } from './side-nav';
 
-export function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
     return (
-        <div>
-            <nav className="container mx-auto">
-
-            </nav>
-
-            <div className="container mx-auto">
-                {children}
-            </div>
+        <div className="flex gap-24 container mx-auto pt-12">
+            <SideNav />
+            
+            {children}
+            
         </div>
     )
 }

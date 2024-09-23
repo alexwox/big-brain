@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
@@ -14,7 +14,7 @@ export default function Home() {
   const createDocument = useMutation(api.documents.createDocument);
 
   return (
-    <main className="p-24 gap-6 space-y-6">
+    <main className=" w-full gap-6 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">My documents</h1>
         <UploadDocumentButton />

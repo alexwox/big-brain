@@ -2,6 +2,7 @@
 import { Unauthenticated, Authenticated, AuthLoading } from "convex/react";
 import { SignInButton, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/ui/mode-toggle";
+import { Loader2 } from "lucide-react";
 
 export function HeaderActions() {
     return <div>
@@ -13,7 +14,7 @@ export function HeaderActions() {
             <UserButton />
         </Authenticated>
         <AuthLoading>
-            Loading...
+            <Loader2 className="animate-spin" />
         </AuthLoading>
     </div>
 }
