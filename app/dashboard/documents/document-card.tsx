@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card"
 
 import { Doc } from "@/convex/_generated/dataModel"
-import { Button } from "./button"
+import { Button } from "../../../components/ui/button"
 import { Eye } from "lucide-react"
 import Link from "next/link"
 import { Loader2 } from "lucide-react"

@@ -22,7 +22,7 @@ export function Header() {
                         <span className="font-bold text-xl text-white" >BIGBRAIN</span>
                     </Link>
                     <nav>
-                        <Link href="/" className="text-white hover:text-slate-300 transition-colors font-semibold"> Documents</Link>
+                        <Link href="/dashboard" className="text-white hover:text-slate-300 transition-colors font-semibold"> Documents</Link>
                     </nav>
                 </div>
                 
