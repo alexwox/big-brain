@@ -18,7 +18,7 @@ export default function DocumentPage(
   });
 
   return (
-    <main className="p-24 gap-6 space-y-6">
+    <main className=" gap-6 space-y-6 w-full">
       {!document &&
         <div className="space-y-8">
           <div className="flex justify-between">
