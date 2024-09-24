@@ -7,7 +7,9 @@ import { Loader2 } from "lucide-react";
 export function HeaderActions() {
     return <div>
         <Unauthenticated>
-            <SignInButton />
+            <div className="flex items-center gap-4 border rounded-md p-2 dark:bg-slate-800 text-white">
+                <SignInButton  />
+            </div>
         </Unauthenticated>
 
         <Authenticated>

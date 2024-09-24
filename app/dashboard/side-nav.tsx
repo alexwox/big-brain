@@ -30,7 +30,7 @@ export function SideNav() {
                     <Link className={cn(
                         "flex items-center gap-2 text-xl hover:text-slate-500",
                         {
-                        'text-blue-500': pathname.endsWith("/notes/")
+                        'text-blue-500': pathname.endsWith("/notes")
                         }
                         )} 
                         href="/dashboard/notes">
@@ -38,7 +38,7 @@ export function SideNav() {
                         Notes
                     </Link>
                 </li>
-                <li>
+                {/* <li>
                     <Link className={cn(
                         "flex items-center gap-2 text-xl hover:text-slate-500",
                         {
@@ -49,7 +49,7 @@ export function SideNav() {
                         <Settings />
                         Settings
                     </Link>
-                </li>
+                </li> */}
             </ul>
 
         </nav>
