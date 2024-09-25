@@ -15,10 +15,10 @@ export default function NotePage() {
 
     return (
 
-        <div className="relative border rounded-xl border-slate-200 dark:border-slate-800 p-6">
+        <div className="relative border-slate-200 dark:border-slate-800 p-6">
             <DeleteNoteButton noteId={note._id} />
 
-            <div className="pr-14">
+            <div className="pr-30 whitespace-pre-line">
                 {note?.text}
             </div>
         </div>

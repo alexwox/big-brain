@@ -39,12 +39,11 @@ export default function NotesLayout({
                 <CreateNoteButton />
               </div>)}
 
-
             {hasNotes && (
-                <div className="flex gap-12">
-                    <ul className="space-y-6 w-[200px]">
+                <div className="flex gap-12 max-w-full">
+                    <ul className="space-y-6 w-64">
                     {notes?.map((note) => (
-                        <li className={cn("hover:text-slate-500 p-2 rounded-md", {
+                        <li className={cn("hover:text-slate-500 dark:border-slate-800", {
                             "text-blue-500": note._id === noteId
                         })} key={note._id}>
                             <Link href={`/dashboard/notes/${note._id}`}>{note.text.substring(0, 20) + "..."}</Link>
@@ -52,7 +51,7 @@ export default function NotesLayout({
                     ))}
                 </ul>
 
-                    <div className="w-full">{children}</div>
+                    <div className="flex-grow max-w-full mx-auto overflow-auto">{children}</div>
                 </div>
             )}
         </main>
