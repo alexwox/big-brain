@@ -15,7 +15,7 @@ export default function NotePage() {
 
     return (
 
-        <div className="relative">
+        <div className="relative border rounded-xl border-slate-200 dark:border-slate-800 p-6">
             <DeleteNoteButton noteId={note._id} />
 
             <div className="pr-14">

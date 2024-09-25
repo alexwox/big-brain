@@ -52,7 +52,7 @@ export default function NotesLayout({
                     ))}
                 </ul>
 
-                    <div className="w-full border rounded-xl border-slate-200 dark:border-slate-800 p-6">{children}</div>
+                    <div className="w-full">{children}</div>
                 </div>
             )}
         </main>

@@ -69,10 +69,17 @@ export const deleteNote = mutation({
     },
     handler: async (ctx, args) => {
         const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
-        if (!userId) {
-            return null;
+
+        const note = await ctx.db.get(args.noteId);
+
+        if (!note) {
+            throw new ConvexError("Note not found");
         }
-        
+
+        if (note?.tokenIdentifier !== userId) {
+            throw new ConvexError("Unauthorized");
+        }
+
         await ctx.db.delete(args.noteId);
     },
 })
