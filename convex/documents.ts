@@ -214,7 +214,7 @@ export const askQuestion = action({
         const truncatedHistory = truncateHistory(chats, 1000);
 
         const completion: OpenAI.Chat.Completions.ChatCompletion = await openai.chat.completions.create({
-            model: "gpt-4",
+            model: "gpt-4o",
             messages: [
                 {
                     role: "system", content: `
