@@ -27,11 +27,11 @@ export const getNote = query({
     args: {
         noteId: v.id("notes"),
     },
-    handler: async (ctx, args) => {
+    async handler(ctx, args) {
         const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
         if (!userId) {
             return null;
-        }
+        }   
 
         const note = await ctx.db.get(args.noteId);
 
@@ -47,7 +47,7 @@ export const getNote = query({
     },
 });
 
-async function embed(text: string) {
+export async function embed(text: string) {
     const embedding = await openai.embeddings.create({
         input: text,
         model: "text-embedding-3-small",
