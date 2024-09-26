@@ -95,6 +95,16 @@ export const getDocument = query({
     }
 })
 
+
+export async function embed(text: string) {
+    const embedding = await openai.embeddings.create({
+        input: text,
+        model: "text-embedding-3-small",
+        dimensions: 1536,
+    });
+    return embedding.data[0].embedding;
+}
+
 export const createDocument = mutation({
     args: {
         title: v.string(),
@@ -117,6 +127,7 @@ export const createDocument = mutation({
         await ctx.scheduler.runAfter(0, internal.documents.generateDescription, {
             documentId: documentId,
             fileId: args.fileId,
+
         });
     },
 })
@@ -125,10 +136,12 @@ export const updateDocumentDescription = internalMutation({
     args: {
         documentId: v.id('documents'),
         description: v.string(),
+        embedding: v.array(v.float64()),
     },
     async handler(ctx, args) {
         await ctx.db.patch(args.documentId, {
             description: args.description,
+            embedding: args.embedding,
         });
     },
 });
@@ -167,11 +180,13 @@ export const generateDescription = internalAction({
             ],
         });
 
-        const response = completion.choices[0].message.content ?? 'Could not generate description';
+        const description = completion.choices[0].message.content ?? 'Could not generate description';
 
+        const embedding = await embed(description)
         await ctx.runMutation(internal.documents.updateDocumentDescription, {
             documentId: args.documentId,
-            description: response,
+            description: description,
+            embedding,
         });
     },
 })

@@ -21,7 +21,7 @@ export default function SearchPage() {
                     if (result.type === "notes") {
                         return <Link href={`/dashboard/notes/${result.record._id}`} >
                             <li key={result.record._id} className="whitespace-pre-line border border-gray-200 p-4 rounded-md">
-                                Type: "note"
+                                Type: "note" (score: {result.score.toFixed(2)})
                                 <br />
                                 {result.record.text.substring(0, 500) + "..."}
                             </li>
@@ -29,8 +29,8 @@ export default function SearchPage() {
                     } else {
                         return (
                             <Link href={`/dashboard/documents/${result.record._id}`}>
-                                <li key={result.record._id} className="whitespace-pre-line">
-                                    Type: "document"
+                                <li key={result.record._id} className="whitespace-pre-line border border-gray-200 p-4 rounded-md">
+                                    Type: "document" (score: {result.score.toFixed(2)})
                                     <br />
                                     {result.record.title}
                                     <br />
