@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import { Id } from "../../../convex/_generated/dataModel";
 import { cn } from "../../../lib/utils";
 import Image from "next/image";
+import { Skeleton } from "../../../components/ui/skeleton"
 
 export default function NotesLayout({
     children,
@@ -24,7 +25,26 @@ export default function NotesLayout({
                 <CreateNoteButton />
             </div>
 
-            {!hasNotes && (
+            {!notes && (
+                <div className="flex gap-10">
+                    <div className = "w-[180px] space-y-4"> 
+                        <Skeleton className="h-[20px] w-full" />
+                        <Skeleton className="h-[20px] w-full" />
+                        <Skeleton className="h-[20px] w-full" />
+                        <Skeleton className="h-[20px] w-full" />
+                        <Skeleton className="h-[20px] w-full" />
+                        <Skeleton className="h-[20px] w-full" />
+                        <Skeleton className="h-[20px] w-full" />
+                        <Skeleton className="h-[20px] w-full" />
+                        <Skeleton className="h-[20px] w-full" />
+                    </div>
+                    <div className="flex-1">
+                        <Skeleton className="h-[420px] w-full" />
+                    </div>
+                </div>
+            )}
+
+            {notes && notes.length === 0 && (
                 <div className="flex flex-col items-center justify-center gap-4 py-12">
                 <Image 
                   src="/notes.svg" 
@@ -39,7 +59,7 @@ export default function NotesLayout({
                 <CreateNoteButton />
               </div>)}
 
-            {hasNotes && (
+            {notes && notes.length > 0 && (
                 <div className="flex gap-12 max-w-full">
                     <ul className="space-y-6 w-64">
                     {notes?.map((note) => (
