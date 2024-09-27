@@ -53,7 +53,7 @@ export default function NotesLayout({
                   height={300} 
                 />
                 <h2 className="text-2xl font-bold">No notes found</h2>
-                <p className="text-sm text-gray-499">
+                <p className="text-sm text-gray-500">
                   Create a note to get started.
                 </p>
                 <CreateNoteButton />
