@@ -48,7 +48,7 @@ export default function DocumentPage(
             <TabsContent value="document">
               <div className="
             rounded-xl p-4 flex-1 h-[700px]
-            border-2 border-slate-200 dark:border-slate-600">
+            border-2 border-slate-900 dark:border-slate-900">
                 {document.documentUrl && <iframe
                   className="w-full h-full"
                   src={document.documentUrl} />}

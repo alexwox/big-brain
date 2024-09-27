@@ -27,11 +27,11 @@ export const getNote = query({
     args: {
         noteId: v.id("notes"),
     },
-    async handler(ctx, args) {
+    handler: async (ctx, args) => {
         const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
         if (!userId) {
             return null;
-        }   
+        }
 
         const note = await ctx.db.get(args.noteId);
 

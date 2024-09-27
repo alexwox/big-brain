@@ -19,15 +19,15 @@ export default function ChatPanel({
     return (
         <div className=" rounded-xl flex flex-col justify-between gap-3 p-6 rounded-xl border-2 border-slate-900">
             <div className="h-[600px] overflow-y-auto space-y-2">
-                <div className="dark:bg-slate-950 bg-white p-4 rounded dark:text-white text-black border-2 dark:border-slate-700 border-slate-200 font-bold">
+                <div className="dark:bg-slate-950 bg-white p-4 rounded dark:text-white text-black font-bold">
                     Ask about your document
                 </div>
 
                 {chats?.map((chat) => (
                     <div className={cn(
                         {
-                            "bg-blue-200 text-black p-4 rounded": chat.isHuman,
-                            "dark:bg-blue-900 dark:text-blue-200 p-4 rounded": chat.isHuman,
+                            "border-2 border-blue-200 text-black p-4 rounded": chat.isHuman,
+                            "dark:border-blue-900 dark:text-blue-200 p-4 rounded": chat.isHuman,
 
                             "bg-gray-200 text-black p-4 rounded": !chat.isHuman,
                             "dark:bg-gray-700 dark:text-gray-200 p-4 rounded": !chat.isHuman,
