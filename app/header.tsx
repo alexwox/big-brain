@@ -10,8 +10,8 @@ export function Header() {
     return (
         <div className="bg-slate-900 py-4">
             <div className="container mx-auto flex justify-between items-center">
-                <div className = "flex gap-12 items-center">
-                    <Link href="/" className="flex items-center gap-4 text-2xl">
+                <div className="flex gap-24 items-center">
+                    <Link href="/" className="flex items-center gap-8 text-2xl">
                         <Image
                             src="/logo.png"
                             width={40}
@@ -22,13 +22,13 @@ export function Header() {
                         <span className="font-bold text-xl text-white" >BIGBRAIN</span>
                     </Link>
 
-                    <nav>
-                    <OrganizationSwitcher />
+                    <nav className="flex items-center gap-8">
+                        <OrganizationSwitcher />
                         <Link href="/dashboard" className="text-white hover:text-slate-300 transition-colors font-semibold"> Documents</Link>
                     </nav>
                 </div>
-                
-                <div className="flex items-center gap-4">
+
+                <div className="flex items-center gap-4 w-full justify-end">
                     <ModeToggle />
                     <HeaderActions />
                 </div>
