@@ -16,6 +16,7 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
+import { useOrganization } from "@clerk/nextjs";
 
 import { Textarea } from "@/components/ui/textarea";
 
@@ -26,6 +27,7 @@ const formSchema = z.object({
 
 export function CreateNoteForm({ onNoteCreated }: { onNoteCreated: () => void }) {
     const createNote = useMutation(api.notes.createNote);
+    const organization = useOrganization();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -38,6 +40,7 @@ export function CreateNoteForm({ onNoteCreated }: { onNoteCreated: () => void })
     async function onSubmit(values: z.infer<typeof formSchema>) {
         await createNote({
             text: values.text,
+            orgId: organization.organization?.id,
         })
         
         onNoteCreated();

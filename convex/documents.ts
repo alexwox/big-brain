@@ -67,6 +67,19 @@ export const generateUploadUrl = mutation(async (ctx) => {
     return await ctx.storage.generateUploadUrl();
 });
 
+export const hasOrgAccess = async (ctx: QueryCtx, orgId: string) => {
+    const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
+    if (!userId) {
+        return false;
+    }
+
+    const membership = await ctx.db.query('memberships')
+        .withIndex('by_orgId_userId', (q) => q.eq('orgId', orgId).eq('userId', userId))
+        .first();
+
+    return !!membership;
+}
+
 export const getDocuments = query({
     args: {
         orgId: v.optional(v.string()),
@@ -79,6 +92,10 @@ export const getDocuments = query({
         }
 
         if (args.orgId) {
+            const isMember = await hasOrgAccess(ctx, args.orgId)
+            if (!isMember) {
+                return undefined;
+            }
             return await ctx.db.query('documents')
                 .withIndex('by_orgId', (q) => q.eq('orgId', args.orgId))
                 .collect();

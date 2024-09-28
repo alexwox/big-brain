@@ -5,21 +5,42 @@ import { query } from "./_generated/server";
 import { OpenAI } from "openai";
 import { internalAction, internalMutation } from "./_generated/server";
 import { internal } from "./_generated/api";
-const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
+import { hasOrgAccess } from "./documents";
+import { Id } from "./_generated/dataModel";
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export const getNotes = query({
-    args: {},
-    handler: async (ctx) => {
+    args: {
+        orgId: v.optional(v.string()),
+    },
+    handler: async (ctx, args) => {
         const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
         if (!userId) {
             return null;
         }
-        const notes = await ctx.db
-            .query("notes")
-            .withIndex("by_tokenIdentifier", (q) => q.eq("tokenIdentifier", userId))
-            .order("desc")
-            .collect();
-        return notes;
+
+        if (args.orgId) {
+
+            const isMember = await hasOrgAccess(ctx, args.orgId)
+
+            if (!isMember) {
+                return null;
+            }
+
+            const notes = await ctx.db
+                .query("notes")
+                .withIndex("by_orgId", (q) => q.eq("orgId", args.orgId))
+                .collect();
+            return notes;
+
+        } else {
+            const notes = await ctx.db
+                .query("notes")
+                .withIndex("by_tokenIdentifier", (q) => q.eq("tokenIdentifier", userId))
+                .collect();
+            return notes;
+        }
     },
 });
 
@@ -73,7 +94,7 @@ export const createNoteEmbedding = internalAction({
         noteId: v.id("notes"),
         text: v.string(),
     },
-    async handler (ctx, args) {
+    async handler(ctx, args) {
 
         const embedding = await embed(args.text)
 
@@ -82,15 +103,16 @@ export const createNoteEmbedding = internalAction({
             embedding: embedding,
         });
     },
-}); 
+});
 
 
 
 export const createNote = mutation({
     args: {
         text: v.string(),
+        orgId: v.optional(v.string()),
     },
-    async handler (ctx, args) {
+    async handler(ctx, args) {
         const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
 
         if (!userId) {
@@ -98,10 +120,24 @@ export const createNote = mutation({
             return null;
         }
 
-        const noteId = await ctx.db.insert("notes", {
-            text: args.text,
-            tokenIdentifier: userId,
-        });
+        let noteId: Id<"notes">;
+
+        if (args.orgId) {
+            const isMember = await hasOrgAccess(ctx, args.orgId)
+
+            if (!isMember) {
+                throw new ConvexError("Unauthorized");
+            }
+            noteId = await ctx.db.insert("notes", {
+                text: args.text,
+                orgId: args.orgId,
+            });
+        } else {
+            noteId = await ctx.db.insert("notes", {
+                text: args.text,
+                tokenIdentifier: userId,
+            });
+        }
 
         await ctx.scheduler.runAfter(0, internal.notes.createNoteEmbedding, {
             noteId: noteId,
@@ -110,13 +146,13 @@ export const createNote = mutation({
 
         return noteId;
     },
-}); 
+});
 
 export const deleteNote = mutation({
     args: {
         noteId: v.id('notes'),
     },
-    async handler (ctx, args) {
+    async handler(ctx, args) {
         const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
 
         const note = await ctx.db.get(args.noteId);

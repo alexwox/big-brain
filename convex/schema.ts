@@ -4,8 +4,8 @@ import { v } from "convex/values";
 export default defineSchema({
   memberships: defineTable({
     orgId: v.string(),
-    user: v.string(),
-  }),
+    userId: v.string(),
+  }).index('by_orgId_userId', ['orgId', 'userId']),
   documents: defineTable({ 
     title: v.string() ,
     tokenIdentifier: v.optional(v.string()),
@@ -22,9 +22,11 @@ export default defineSchema({
   }),
   notes: defineTable({ 
     text: v.string() ,
-    tokenIdentifier: v.string(),  
+    tokenIdentifier: v.optional(v.string()),  
+    orgId: v.optional(v.string()),
     embedding: v.optional(v.array(v.float64())),
   }).index('by_tokenIdentifier', ['tokenIdentifier'])
+  .index('by_orgId', ['orgId'])
   .vectorIndex("by_embedding", {
     vectorField: "embedding",
     dimensions: 1536,
