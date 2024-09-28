@@ -4,6 +4,7 @@ import { HeaderActions } from "./header-actions";
 
 import Image from "next/image";
 import Link from "next/link";
+import { OrganizationSwitcher } from "@clerk/nextjs";
 
 export function Header() {
     return (
@@ -20,7 +21,9 @@ export function Header() {
                         />
                         <span className="font-bold text-xl text-white" >BIGBRAIN</span>
                     </Link>
+
                     <nav>
+                    <OrganizationSwitcher />
                         <Link href="/dashboard" className="text-white hover:text-slate-300 transition-colors font-semibold"> Documents</Link>
                     </nav>
                 </div>
