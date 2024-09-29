@@ -20,7 +20,6 @@ export const getNotes = query({
         if (!userId) {
             return null;
         }
-
         if (args.orgId) {
 
             const isMember = await hasOrgAccess(ctx, args.orgId)
@@ -173,8 +172,16 @@ export const deleteNote = mutation({
             throw new ConvexError("Note not found");
         }
 
-        if (note?.tokenIdentifier !== userId) {
-            throw new ConvexError("Unauthorized");
+        if (note.orgId) {
+            const hasAccess = await hasOrgAccess(ctx, note.orgId)
+            if (!hasAccess) {
+                console.log("In deleteNote, no access")
+                throw new ConvexError("Unauthorized");
+            }
+        } else {
+            if (note.tokenIdentifier !== userId) {
+                throw new ConvexError("Unauthorized");
+            }
         }
 
         await ctx.db.delete(args.noteId);

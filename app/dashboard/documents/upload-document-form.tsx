@@ -20,7 +20,7 @@ import { Input } from "@/components/ui/input"
 import { Loader2 } from "lucide-react"
 import { generateUploadUrl } from "@/convex/documents";
 import { Id } from "@/convex/_generated/dataModel";
-
+import { useOrganization } from "@clerk/nextjs";
 
 const formSchema = z.object({
     title: z.string().min(1).max(100),
@@ -29,6 +29,7 @@ const formSchema = z.object({
 
 
 export function UploadDocumentForm({ onUpload }: { onUpload: () => void }) {
+    const organization = useOrganization();
     const createDocument = useMutation(api.documents.createDocument);
     const generateUploadUrl = useMutation(api.documents.generateUploadUrl);
     const form = useForm<z.infer<typeof formSchema>>({
@@ -53,6 +54,7 @@ export function UploadDocumentForm({ onUpload }: { onUpload: () => void }) {
         await createDocument({
             title: values.title,
             fileId: storageId as Id<"_storage">,
+            orgId: organization.organization?.id,
         })
         onUpload();
     }

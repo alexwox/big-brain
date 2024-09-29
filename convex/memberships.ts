@@ -1,5 +1,6 @@
 import { v } from "convex/values";
-import { internalMutation } from "./_generated/server";
+import { internalMutation, internalQuery } from "./_generated/server";
+import { hasOrgAccess } from "./documents";
 
 
 export const addUserIdToOrg = internalMutation({
@@ -29,5 +30,14 @@ export const removeUserIdFromOrg = internalMutation({
     if (membership) {
       await ctx.db.delete(membership._id);
     }
+  },
+});
+
+export const hasOrgAccessQuery = internalQuery({
+  args: {
+    orgId: v.string(),
+  },
+  async handler(ctx, args) {
+    return await hasOrgAccess(ctx, args.orgId);
   },
 });

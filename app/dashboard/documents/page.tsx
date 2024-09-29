@@ -16,7 +16,6 @@ export default function Home() {
   const documents = useQuery(api.documents.getDocuments, {
     orgId: organization.organization?.id
   });
-  const createDocument = useMutation(api.documents.createDocument);
 
   return (
     <main className=" w-full gap-6 space-y-6">

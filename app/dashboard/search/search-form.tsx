@@ -18,8 +18,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { LoadingButton } from "@/components/loading-button";
-import { searchAction } from "@/convex/search";
-import { Doc } from "@/convex/_generated/dataModel";
+import { useOrganization } from "@clerk/nextjs"
 
 const formSchema = z.object({
     search: z.string().min(1).max(1000),
@@ -27,6 +26,7 @@ const formSchema = z.object({
 
 export function SearchForm({ setResults }: { setResults: (results: typeof api.search.searchAction._returnType) => void }) {
     const searchAction = useAction(api.search.searchAction);
+    const organization = useOrganization();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -36,7 +36,7 @@ export function SearchForm({ setResults }: { setResults: (results: typeof api.se
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        await searchAction({ search: values.search }).then(setResults);
+        await searchAction({ search: values.search, orgId: organization.organization?.id }).then(setResults);
         
         form.reset();
     }

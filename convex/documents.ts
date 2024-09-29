@@ -15,12 +15,12 @@ import { getChatsForDocument } from "./chats";
 function truncateHistory(chats: any[], maxLength: number): string {
     let history = '';
     for (let i = chats.length - 1; i >= 0; i--) {
-      const chat = chats[i];
-      const chatString = `${chat.isHuman ? "You" : "AI"}: ${chat.text}\n`;
-      if (history.length + chatString.length > maxLength) {
-        break;
-      }
-      history = chatString + history;
+        const chat = chats[i];
+        const chatString = `${chat.isHuman ? "You" : "AI"}: ${chat.text}\n`;
+        if (history.length + chatString.length > maxLength) {
+            break;
+        }
+        history = chatString + history;
     }
     return history.trim();
 }
@@ -41,8 +41,15 @@ export async function hasAccessToDocument(
         return null;
     }
 
-    if (document.tokenIdentifier !== userId) {
-        return null;
+    if (document.orgId) {
+        const hasAccess = await hasOrgAccess(ctx, document.orgId)
+        if (!hasAccess) {
+            return null;
+        }
+    } else {
+        if (document.tokenIdentifier !== userId) {
+            return null;
+        }
     }
 
     return { document, userId };
@@ -70,19 +77,19 @@ export const generateUploadUrl = mutation(async (ctx) => {
 export const hasOrgAccess = async (
     ctx: MutationCtx | QueryCtx,
     orgId: string
-  ) => {
+) => {
     const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier;
 
     if (!userId) {
-      return false;
+        return false;
     }
-  
+
     const membership = await ctx.db
-      .query("memberships")
-      .withIndex("by_orgId_userId", (q) =>
-        q.eq("orgId", orgId).eq("userId", userId)
-      ) 
-      .first();
+        .query("memberships")
+        .withIndex("by_orgId_userId", (q) =>
+            q.eq("orgId", orgId).eq("userId", userId)
+        )
+        .first();
     return !!membership;
 };
 
@@ -124,6 +131,8 @@ export const getDocument = query({
             return null;
         }
 
+
+
         return { ...accessObj.document, documentUrl: await ctx.storage.getUrl(accessObj.document.fileId) };
     }
 })
@@ -142,6 +151,7 @@ export const createDocument = mutation({
     args: {
         title: v.string(),
         fileId: v.id('_storage'),
+        orgId: v.optional(v.string()),
     },
 
     async handler(ctx, args) {
@@ -150,12 +160,29 @@ export const createDocument = mutation({
             throw new ConvexError('Unauthorized');
         }
 
-        const documentId = await ctx.db.insert('documents', {
-            title: args.title,
-            tokenIdentifier: userId,
-            fileId: args.fileId,
-            description: "",
-        })
+
+        let documentId: Id<"documents">;
+
+        if (args.orgId) {
+            const hasAccess = await hasOrgAccess(ctx, args.orgId)
+            if (!hasAccess) {
+                throw new ConvexError("Unauthorized");
+            }
+
+            documentId = await ctx.db.insert('documents', {
+                title: args.title,
+                fileId: args.fileId,
+                orgId: args.orgId,
+                description: "",
+            })
+        } else {
+            documentId = await ctx.db.insert('documents', {
+                title: args.title,
+                tokenIdentifier: userId,
+                fileId: args.fileId,
+                description: "",
+            })
+        }
         await ctx.scheduler.runAfter(0, internal.documents.generateDescription, {
             documentId: documentId,
             fileId: args.fileId,

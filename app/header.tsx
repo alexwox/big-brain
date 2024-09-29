@@ -24,7 +24,7 @@ export function Header() {
 
                     <nav className="flex items-center gap-8">
                         <OrganizationSwitcher />
-                        <Link href="/dashboard" className="text-white hover:text-slate-300 transition-colors font-semibold"> Documents</Link>
+                        <Link href="/dashboard" className="text-white hover:text-slate-300 transition-colors font-semibold"> Dashboard</Link>
                     </nav>
                 </div>
 
