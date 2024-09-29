@@ -16,18 +16,14 @@ export const getNotes = query({
     },
     async handler(ctx, args) {
         const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
-        
+
         if (!userId) {
             return null;
         }
 
         if (args.orgId) {
-            console.log("Org ID: ", args.orgId)
-            console.log("User ID: ", userId)
-            console.log("Context: ", ctx)
 
             const isMember = await hasOrgAccess(ctx, args.orgId)
-            console.log("Is member: ",isMember)
             if (!isMember) {
                 console.log("Not a member")
                 return null;
@@ -57,29 +53,29 @@ export const getNote = query({
     },
     async handler(ctx, args) {
         const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier;
-    
+
         if (!userId) {
-          return null;
+            return null;
         }
-    
+
         const note = await ctx.db.get(args.noteId);
-    
+
         if (!note) {
-          return null;
+            return null;
         }
-    
+
         if (note.orgId) {
-          const hasAccess = await hasOrgAccess(ctx, note.orgId);
-    
-          if (!hasAccess) {
-            return null;
-          }
+            const hasAccess = await hasOrgAccess(ctx, note.orgId);
+
+            if (!hasAccess) {
+                return null;
+            }
         } else {
-          if (note.tokenIdentifier !== userId) {
-            return null;
-          }
+            if (note.tokenIdentifier !== userId) {
+                return null;
+            }
         }
-    
+
         return note;
     },
 });
@@ -131,6 +127,7 @@ export const createNote = mutation({
     async handler(ctx, args) {
         const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
 
+
         if (!userId) {
             throw new ConvexError("Unauthorized");
         }
@@ -138,9 +135,11 @@ export const createNote = mutation({
         let noteId: Id<"notes">;
 
         if (args.orgId) {
+
             const hasAccess = await hasOrgAccess(ctx, args.orgId)
 
             if (!hasAccess) {
+                console.log("In createNote, no access")
                 throw new ConvexError("Unauthorized");
             }
             noteId = await ctx.db.insert("notes", {

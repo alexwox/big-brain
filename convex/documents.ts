@@ -72,9 +72,8 @@ export const hasOrgAccess = async (
     orgId: string
   ) => {
     const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier;
-    console.log("User ID in hasOrgAccess: ", userId)
+
     if (!userId) {
-        console.log("In hasOrgAccess, no user id")
       return false;
     }
   
@@ -84,7 +83,6 @@ export const hasOrgAccess = async (
         q.eq("orgId", orgId).eq("userId", userId)
       ) 
       .first();
-    console.log("Membership: ", membership)
     return !!membership;
 };
 
@@ -148,7 +146,6 @@ export const createDocument = mutation({
 
     async handler(ctx, args) {
         const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
-        console.log(userId);
         if (!userId) {
             throw new ConvexError('Unauthorized');
         }

@@ -31,7 +31,6 @@ http.route({
                         userId: `https://${process.env.CLERK_HOSTNAME}|${result.data.public_user_data.user_id}`,
                         orgId: result.data.organization.id,
                     });
-                    console.log("Added user to org")
                     break;
                 case "organizationMembership.deleted":
                     await ctx.runMutation(internal.memberships.removeUserIdFromOrg, {
