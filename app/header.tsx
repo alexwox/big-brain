@@ -8,7 +8,7 @@ import { OrganizationSwitcher } from "@clerk/nextjs";
 
 export function Header() {
     return (
-        <div className="bg-slate-900 py-4">
+        <div className="dark:bg-slate-900 bg-slate-100 py-4 z-10 relative border-b border-slate-200 dark:border-slate-800">
             <div className="container mx-auto flex justify-between items-center">
                 <div className="flex gap-24 items-center">
                     <Link href="/" className="flex items-center gap-8 text-2xl">
@@ -19,12 +19,12 @@ export function Header() {
                             className="rounded"
                             alt="an image of a brain"
                         />
-                        <span className="font-bold text-xl text-white" >BIGBRAIN</span>
+                        <span className="font-bold text-xl" >BIGBRAIN</span>
                     </Link>
 
                     <nav className="flex items-center gap-8">
                         <OrganizationSwitcher />
-                        <Link href="/dashboard" className="text-white hover:text-slate-300 transition-colors font-semibold"> Dashboard</Link>
+                        <Link href="/dashboard" className="hover:text-slate-300 transition-colors font-semibold"> Dashboard</Link>
                     </nav>
                 </div>
 

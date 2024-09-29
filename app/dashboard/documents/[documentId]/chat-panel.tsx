@@ -29,7 +29,7 @@ export default function ChatPanel({
                             "border-2 border-blue-200 text-black p-4 rounded": chat.isHuman,
                             "dark:border-blue-900 dark:text-blue-200 p-4 rounded": chat.isHuman,
 
-                            "bg-gray-200 text-black p-4 rounded": !chat.isHuman,
+                            "bg-gray-100 text-black p-4 rounded": !chat.isHuman,
                             "dark:bg-gray-700 dark:text-gray-200 p-4 rounded": !chat.isHuman,
                             
                             "text-right": chat.isHuman,

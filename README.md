@@ -3,7 +3,7 @@ Tutorial : https://www.youtube.com/watch?v=4ojKx770_0Q&t=146s
 Cody's repo: https://github.com/webdevcody/big-brain 
 
 Timestamps: 
-- 03:41:12 / 5:21:58
+- 05:21:58 / 5:21:58
 
 Chapters: 
 - [X] Chapter 0: 00:00:00 Overview
@@ -37,12 +37,12 @@ Chapters:
 - [X] Chapter 28: 02:58:59 Side Nav & Dashboard Layout
 - [X] Chapter 29: 03:11:23 Create Notes
 - [X] Chapter 30: 03:22:32 View Notes 
-- [ ] Chapter 31: 03:41:10 Note Empty State
-- [ ] Chapter 32: 03:43:38 Vector Search
-- [ ] Chapter 33: 04:09:46 Document Embeddings
-- [ ] Chapter 34: 04:15:26 Flicker on Notes
-- [ ] Chapter 35: 04:19:07 Cache Notes
-- [ ] Chapter 36: 04:27:44 Fix Document Styles
-- [ ] Chapter 37: 04:28:21 Organizations
-- [ ] Chapter 38: 05:13:25 Landing Page
-- [ ] Chapter 39: 05:15:46 Dark Mode Fixes
+- [X] Chapter 31: 03:41:10 Note Empty State
+- [X] Chapter 32: 03:43:38 Vector Search
+- [X] Chapter 33: 04:09:46 Document Embeddings
+- [X] Chapter 34: 04:15:26 Flicker on Notes
+- [X] Chapter 35: 04:19:07 Cache Notes
+- [X] Chapter 36: 04:27:44 Fix Document Styles
+- [X] Chapter 37: 04:28:21 Organizations
+- [X] Chapter 38: 05:13:25 Landing Page
+- [X] Chapter 39: 05:15:46 Dark Mode Fixes
