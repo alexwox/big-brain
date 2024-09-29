@@ -14,17 +14,22 @@ export const getNotes = query({
     args: {
         orgId: v.optional(v.string()),
     },
-    handler: async (ctx, args) => {
+    async handler(ctx, args) {
         const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
+        
         if (!userId) {
             return null;
         }
 
         if (args.orgId) {
+            console.log("Org ID: ", args.orgId)
+            console.log("User ID: ", userId)
+            console.log("Context: ", ctx)
 
             const isMember = await hasOrgAccess(ctx, args.orgId)
-
+            console.log("Is member: ",isMember)
             if (!isMember) {
+                console.log("Not a member")
                 return null;
             }
 
@@ -32,12 +37,14 @@ export const getNotes = query({
                 .query("notes")
                 .withIndex("by_orgId", (q) => q.eq("orgId", args.orgId))
                 .collect();
+
             return notes;
 
         } else {
             const notes = await ctx.db
                 .query("notes")
                 .withIndex("by_tokenIdentifier", (q) => q.eq("tokenIdentifier", userId))
+                .order('desc')
                 .collect();
             return notes;
         }
@@ -48,22 +55,31 @@ export const getNote = query({
     args: {
         noteId: v.id("notes"),
     },
-    handler: async (ctx, args) => {
-        const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
+    async handler(ctx, args) {
+        const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier;
+    
         if (!userId) {
-            return null;
+          return null;
         }
-
+    
         const note = await ctx.db.get(args.noteId);
-
+    
         if (!note) {
-            return null;
+          return null;
         }
-
-        if (note?.tokenIdentifier !== userId) {
+    
+        if (note.orgId) {
+          const hasAccess = await hasOrgAccess(ctx, note.orgId);
+    
+          if (!hasAccess) {
             return null;
+          }
+        } else {
+          if (note.tokenIdentifier !== userId) {
+            return null;
+          }
         }
-
+    
         return note;
     },
 });
@@ -117,15 +133,14 @@ export const createNote = mutation({
 
         if (!userId) {
             throw new ConvexError("Unauthorized");
-            return null;
         }
 
         let noteId: Id<"notes">;
 
         if (args.orgId) {
-            const isMember = await hasOrgAccess(ctx, args.orgId)
+            const hasAccess = await hasOrgAccess(ctx, args.orgId)
 
-            if (!isMember) {
+            if (!hasAccess) {
                 throw new ConvexError("Unauthorized");
             }
             noteId = await ctx.db.insert("notes", {
@@ -143,8 +158,6 @@ export const createNote = mutation({
             noteId: noteId,
             text: args.text,
         });
-
-        return noteId;
     },
 });
 

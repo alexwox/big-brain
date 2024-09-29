@@ -9,8 +9,13 @@ import { UploadDocumentButton } from "./upload-document-button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
+import { useOrganization } from "@clerk/nextjs";
+
 export default function Home() {
-  const documents = useQuery(api.documents.getDocuments);
+  const organization = useOrganization();
+  const documents = useQuery(api.documents.getDocuments, {
+    orgId: organization.organization?.id
+  });
   const createDocument = useMutation(api.documents.createDocument);
 
   return (

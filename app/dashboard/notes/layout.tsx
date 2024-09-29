@@ -16,11 +16,15 @@ export default function NotesLayout({
     children: React.ReactNode;
 }) {
     const organization = useOrganization();
-    const notes = useQuery(api.notes.getNotes, { orgId: organization.organization?.id });
-    
+    const notes = useQuery(api.notes.getNotes, { 
+        orgId: organization.organization?.id 
+    });
+    console.log("In Notes Layout (notes): ", notes)
+    console.log("In Notes Layout (orgId): ", organization.organization?.id)
+
+
     const { noteId } = useParams<{ noteId: Id<"notes"> }>();
 
-    const hasNotes = notes && notes.length > 0;
     return (
         <main className=" w-full gap-6 space-y-6">
             <div className="flex justify-between items-center">
@@ -47,7 +51,7 @@ export default function NotesLayout({
                 </div>
             )}
 
-            {notes && notes.length === 0 && (
+            {notes?.length === 0 && (
                 <div className="flex flex-col items-center justify-center gap-4 py-12">
                 <Image 
                   src="/notes.svg" 

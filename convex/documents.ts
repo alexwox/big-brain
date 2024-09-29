@@ -67,18 +67,26 @@ export const generateUploadUrl = mutation(async (ctx) => {
     return await ctx.storage.generateUploadUrl();
 });
 
-export const hasOrgAccess = async (ctx: QueryCtx, orgId: string) => {
-    const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier
+export const hasOrgAccess = async (
+    ctx: MutationCtx | QueryCtx,
+    orgId: string
+  ) => {
+    const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier;
+    console.log("User ID in hasOrgAccess: ", userId)
     if (!userId) {
-        return false;
+        console.log("In hasOrgAccess, no user id")
+      return false;
     }
-
-    const membership = await ctx.db.query('memberships')
-        .withIndex('by_orgId_userId', (q) => q.eq('orgId', orgId).eq('userId', userId))
-        .first();
-
+  
+    const membership = await ctx.db
+      .query("memberships")
+      .withIndex("by_orgId_userId", (q) =>
+        q.eq("orgId", orgId).eq("userId", userId)
+      ) 
+      .first();
+    console.log("Membership: ", membership)
     return !!membership;
-}
+};
 
 export const getDocuments = query({
     args: {
