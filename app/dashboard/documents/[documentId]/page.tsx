@@ -11,7 +11,6 @@ import { DeleteDocumentButton } from "./delete-document-button";
 export default function DocumentPage(
   { params }: { params: { documentId: Id<"documents"> } }
 ) {
-  const createDocument = useMutation(api.documents.createDocument);
 
   const document = useQuery(api.documents.getDocument, {
     documentId: params.documentId

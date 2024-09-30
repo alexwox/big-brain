@@ -52,7 +52,7 @@ export default function SearchPage() {
                 {results?.map((result) => {
                     if (result.type === "notes") {
                         return (
-                            <SearchResults
+                            <SearchResults key={result.record._id}
                                 type="Note"
                                 url={`/dashboard/notes/${result.record._id}`}
                                 score={result.score}
@@ -60,7 +60,7 @@ export default function SearchPage() {
                             />)
                     } else {
                         return (
-                            <SearchResults
+                            <SearchResults key={result.record._id}
                                 type="Document"
                                 url={`/dashboard/documents/${result.record._id}`}
                                 score={result.score}

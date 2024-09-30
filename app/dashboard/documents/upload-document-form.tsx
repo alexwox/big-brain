@@ -84,7 +84,7 @@ export function UploadDocumentForm({ onUpload }: { onUpload: () => void }) {
                                     onChange={(e) => {
                                         const file = e.target.files?.[0]
                                         onChange(file)
-                                        
+                                        form.setValue("title", value.name)
                                     }} />
                             </FormControl>
                             <FormMessage />

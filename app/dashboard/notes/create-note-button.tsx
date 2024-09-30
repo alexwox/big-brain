@@ -16,7 +16,6 @@ import { PlusIcon } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 
 export function CreateNoteButton() {
-    const createDocument = useMutation(api.documents.createDocument);
     const [isOpen, setIsOpen] = useState(false);
     const { toast } = useToast();
     return (

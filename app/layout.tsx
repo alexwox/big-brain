@@ -6,11 +6,6 @@ import "./globals.css";
 import { Header } from "./header";
 import { Toaster } from "@/components/ui/toaster"
 
-const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",

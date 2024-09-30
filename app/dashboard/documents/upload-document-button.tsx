@@ -14,7 +14,6 @@ import {
 import { Upload } from "lucide-react"
 
 export function UploadDocumentButton() {
-    const createDocument = useMutation(api.documents.createDocument);
     const [isOpen, setIsOpen] = useState(false);
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

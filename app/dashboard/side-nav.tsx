@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FilesIcon, NotebookPen, Search, Settings } from "lucide-react";
+import { FilesIcon, NotebookPen, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 

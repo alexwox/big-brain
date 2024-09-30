@@ -24,7 +24,7 @@ export default function ChatPanel({
                 </div>
 
                 {chats?.map((chat) => (
-                    <div className={cn(
+                    <div key={chat._id} className={cn(
                         {
                             "border-2 border-blue-200 text-black p-4 rounded": chat.isHuman,
                             "dark:border-blue-900 dark:text-blue-200 p-4 rounded": chat.isHuman,

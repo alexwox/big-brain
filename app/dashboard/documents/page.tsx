@@ -25,7 +25,7 @@ export default function Home() {
       {!documents &&
         <div className="grid grid-cols-4 gap-4">
           {new Array(8).fill(0).map((_, index) => (
-            <Card className="p-6 flex flex-col gap-4 justify-between">
+            <Card key={index} className="p-6 flex flex-col gap-4 justify-between">
               <Skeleton className=" h-[20px] rounded-lg" />
               <Skeleton className=" h-[20px] rounded-lg" />
               <Skeleton className=" h-[20px] rounded-lg" />
@@ -56,7 +56,7 @@ export default function Home() {
       {documents && documents.length > 0 && (
         <div className="grid grid-cols-4 gap-4">
           {documents?.map((doc) => (
-            <DocumentCard document={doc} />
+            <DocumentCard key={doc._id} document={doc} />
           ))}
         </div>
       )}
