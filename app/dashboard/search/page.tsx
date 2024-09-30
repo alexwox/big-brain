@@ -2,10 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { SearchForm } from "./search-form";
-import { Doc } from "@/convex/_generated/dataModel";
 import { api } from "@/convex/_generated/api";
 import Link from "next/link";
-import { url } from "inspector";
 import { NotebookPenIcon, Files } from "lucide-react";
 
 function SearchResults({ url, score, type, text }: { url: string, score: number, type: string, text: string }) {

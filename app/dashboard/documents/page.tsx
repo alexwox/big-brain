@@ -1,10 +1,8 @@
 "use client";
 
-import { useMutation, useQuery } from "convex/react";
+import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { Button } from "@/components/ui/button";
 import { DocumentCard } from "@/app/dashboard/documents/document-card";
-import { Grid } from "lucide-react";
 import { UploadDocumentButton } from "./upload-document-button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card } from "@/components/ui/card";

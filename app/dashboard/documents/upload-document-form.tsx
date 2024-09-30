@@ -5,20 +5,16 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { api } from "@/convex/_generated/api"
 import { useMutation } from "convex/react"
-import { Button } from "@/components/ui/button"
 import { LoadingButton } from "@/components/loading-button"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Loader2 } from "lucide-react"
-import { generateUploadUrl } from "@/convex/documents";
 import { Id } from "@/convex/_generated/dataModel";
 import { useOrganization } from "@clerk/nextjs";
 

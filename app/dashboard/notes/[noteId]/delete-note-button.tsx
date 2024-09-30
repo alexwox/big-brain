@@ -2,7 +2,6 @@
 
 import {
     AlertDialog,
-    AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
@@ -12,8 +11,6 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { TrashIcon } from "lucide-react"
-import { buttonStyles, buttonIconStyles } from "@/styles/styles"
 import { useMutation } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
@@ -21,6 +18,7 @@ import { LoadingButton } from "@/components/loading-button"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Trash } from "lucide-react"
+
 export function DeleteNoteButton({ noteId }: { noteId: Id<"notes"> }) {
     const deleteNote = useMutation(api.notes.deleteNote)
 

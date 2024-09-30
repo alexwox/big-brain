@@ -1,14 +1,11 @@
-
 'use client'
 
 import { SignInButton } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
-
 export default function LandingPage() {
-
   return (
-    <div>
+    <>
       <div className="relative isolate px-6 pt-14 lg:px-8">
         <div
           aria-hidden="true"
@@ -53,6 +50,6 @@ export default function LandingPage() {
           />
         </div>
       </div>
-    </div>
+    </>
   )
 }
