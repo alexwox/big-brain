@@ -26,7 +26,7 @@ export default function LandingPage() {
               Take control of your team documentation
             </h1>
             <p className="dark:text-gray-300 mt-6 text-lg leading-8 text-gray-600">
-              Big Brain is a tool that allows you to understand your team's information using AI.
+              Big Brain is a tool that allows you to understand your team&#39;s information using AI.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <SignInButton>
