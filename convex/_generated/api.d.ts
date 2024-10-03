@@ -20,6 +20,8 @@ import type * as http from "../http.js";
 import type * as memberships from "../memberships.js";
 import type * as notes from "../notes.js";
 import type * as search from "../search.js";
+import type * as stripe from "../stripe.js";
+import type * as users from "../users.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -37,6 +39,8 @@ declare const fullApi: ApiFromModules<{
   memberships: typeof memberships;
   notes: typeof notes;
   search: typeof search;
+  stripe: typeof stripe;
+  users: typeof users;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

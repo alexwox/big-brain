@@ -3,9 +3,32 @@ import { httpAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { WebhookEvent } from "@clerk/nextjs/server";
 
-
 const http = httpRouter();
 
+http.route({
+  path: "/stripe",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    const signature = request.headers.get("stripe-signature") as string;
+
+    const result = await ctx.runAction(internal.stripe.fulfill, {
+      payload: await request.text(), 
+      signature,
+    });
+
+    if (result.success) {
+      return new Response(null, {
+        status: 200,
+      });
+    } else {
+      return new Response("Webhook Error", {
+        status: 400,
+      });
+    }
+  }),
+});
+
+        
 // HTTP actions can be defined inline...
 http.route({
     path: "/clerk",

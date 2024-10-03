@@ -39,4 +39,11 @@ export default defineSchema({
     isHuman: v.boolean(),
     text: v.string(),
   }).index("by_documentId_tokenIdentifier", ["documentId", "tokenIdentifier"]),
+  users: defineTable({
+    tokenIdentifier: v.string(),
+    subscriptionId: v.string(),
+    endsOn: v.number(),
+    subscriptionStatus: v.optional(v.string()),
+    subscriptionEndsOn: v.optional(v.any()),
+  }).index("by_tokenIdentifier", ["tokenIdentifier"]),
 });
