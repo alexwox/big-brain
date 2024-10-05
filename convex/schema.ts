@@ -40,10 +40,16 @@ export default defineSchema({
     text: v.string(),
   }).index("by_documentId_tokenIdentifier", ["documentId", "tokenIdentifier"]),
   users: defineTable({
-    tokenIdentifier: v.string(),
-    subscriptionId: v.string(),
-    endsOn: v.number(),
-    subscriptionStatus: v.optional(v.string()),
-    subscriptionEndsOn: v.optional(v.any()),
-  }).index("by_tokenIdentifier", ["tokenIdentifier"]),
+    userId: v.string(),
+    email: v.string(),
+    subscriptionId: v.optional(v.string()),
+    endsOn: v.optional(v.number()),
+    credits: v.number(),
+    name: v.optional(v.string()),
+    isAdmin: v.optional(v.boolean()),
+    profileImage: v.optional(v.string()),
+    isPremium: v.optional(v.boolean()),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_subscriptionId", ["subscriptionId"]),
 });
