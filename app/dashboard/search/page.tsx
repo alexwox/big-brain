@@ -20,6 +20,7 @@ function SearchResults({ url, score, type, text }: { url: string, score: number,
                     </div>
                 </div>
 
+
                 <div>
                     {text.substring(0, 100) + "..."}
                 </div>
